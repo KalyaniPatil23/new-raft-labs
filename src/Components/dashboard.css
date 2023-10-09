@@ -1,0 +1,18 @@
+.ant-menu-light .ant-menu-item-selected{
+    background-color: #6e63e5;
+    color: white;
+}
+
+.ant-dropdown-menu {
+    max-height: 100px;
+    overflow: auto;
+}
+
+.search-icon.ant-avatar {
+    background: #f5f6f9;
+    color: #b4bac1;
+}
+
+.main-card .ant-card .ant-card-body {
+    padding: 10px !important;
+}
