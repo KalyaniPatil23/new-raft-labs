@@ -12,6 +12,7 @@ import books from "../images/books.png";
 import laptop from '../images/laptop.png';
 import book from '../images/book.png';
 import './dashboard.css';
+import CustomBar from "./common/BarChart";
 
 const Dashboard = () => {
     const [selectedMonth, setSelectedMonth] = useState('Month');
@@ -224,10 +225,48 @@ const Dashboard = () => {
             </div>
             </Col>
             <Col span={20}>
+                {/* <div className="p-5"> */}
+                <Row className="m-5">
+                <Col flex={3}>
+                    <Row>
+                        <Badge count={3} color="blue" size="large" className="self-center">
+                            <Avatar size={50} src={maleProfile}/>
+                        </Badge>
+                        <div className="ml-6">
+                            <p className="font-semibold text-3xl">Good Evening Team!</p>
+                            <p className="text-[#c7cbd0]">Have an in-depth look at all the metrics within your dashboard.</p>
+                        </div>
+                        <div className="ml-auto self-center">
+                            <Avatar size={'large'} icon={<SearchOutlined/>} className="search-icon cursor-pointer"/>
+                        </div>
+                    </Row>
+                </Col>
+                <Col flex={2} className="self-center ml-7">
+                    <div>
+                    <Row>
+                            <span class="relative inline-block self-center">
+                                <BellOutlined className="text-[#b7bcc2] text-xl"/>
+                                <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full"></span>
+                            </span>
+                            <div className="ml-auto">
+                            <Dropdown menu={{items: [], onClick: handleMonthClick}} placement="top" arrow={{ pointAtCenter: true }}>
+                                    <Button icon={<Avatar src={maleProfile}/>} className="h-10 rounded-full">
+                                        <Space>
+                                            Jhontosan
+                                        <DownOutlined />
+                                        </Space>
+                                    </Button>
+                            </Dropdown>
+                            </div>
+                            </Row>
+                    </div>
+                </Col>
+                </Row>
+                {/* </div> */}
                 <Row>
                     <Col flex={3}>
                         <div className="p-5">
-                            <Row className="m-5">
+                            {/* <Row className="m-5">
                                 <Badge count={3} color="blue" size="large" className="self-center">
                                     <Avatar size={50} src={maleProfile}/>
                                 </Badge>
@@ -238,7 +277,7 @@ const Dashboard = () => {
                                 <div className="ml-auto self-center">
                                     <Avatar size={'large'} icon={<SearchOutlined/>} className="search-icon cursor-pointer"/>
                                 </div>
-                            </Row>
+                            </Row> */}
                             <Card className="bg-[#6e63e5] p-2.5 main-card">
                                 <Row className="main-card">
                                 {/* <div className="flex flex-row gap-8"> */}
@@ -304,15 +343,39 @@ const Dashboard = () => {
                                     <Col span={12}>
                                         <h1 className="font-medium text-xl">Total Sales & Cost</h1>
                                         <p className="text-[#c7cbd0]">Last 60 days</p>
-                                        <div className="flex flex-row bottom-0">
+                                        <div className="absolute bottom-1.5">
+                                        <div className="flex flex-row">
                                             <p className="text-3xl text-[#6e63e5] font-bold">$956.82k</p>
                                             <div className=" flex flex-row gap-1 rounded-full bg-[#b3f3cb] self-center text-[#88e3a5] p-1 ml-2 h-6">
                                                 <CaretUpOutlined/><p className="text-xs font-bold">+5.4%</p>
                                             </div>
                                         </div>
                                         <span className="text-[#88e3a5]">+8.20k</span><span className="text-[#c7cbd0]"> vs prev 60 days</span>
+                                        </div>
                                     </Col>
-                                    <Col span={12}></Col>
+                                    <Col span={12}>
+                                        <Row >
+                                            <div>
+                                            <span className="font-semibold">Analytic</span><span className="text-[#88e3a5]"> +5.4%</span>
+                                            </div>
+                                            <div className="ml-auto">
+                                            <Dropdown menu={{
+        items: months,
+        onClick: ()=>{},
+      }} className="ml-auto" placement="top" arrow={{ pointAtCenter: true }}>
+                                            <Button>
+                                            <Space>
+                                                Month
+                                                <DownOutlined />
+                                            </Space>
+                                    </Button>
+                                </Dropdown>
+                                            </div>
+                                        </Row>
+                                        <div className="mt-1 p-1">
+                                        <CustomBar/>
+                                        </div>
+                                    </Col>
                                 </Row>
                             </Card>
                             <Row className="mt-5">
@@ -359,7 +422,7 @@ const Dashboard = () => {
                     </Col>
                     <Col flex={2}>
                         <div className="p-5">
-                            <Row className="mt-6">
+                            {/* <Row className="mt-6">
                             <span class="relative inline-block self-center">
                                 <BellOutlined className="text-[#b7bcc2] text-xl"/>
                                 <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full"></span>
@@ -374,8 +437,8 @@ const Dashboard = () => {
                                     </Button>
                             </Dropdown>
                             </div>
-                            </Row>
-                            <div className="mt-7">
+                            </Row> */}
+                            <div>
                                 <p className="text-[#6e63e5]">Premium Access</p>
                                 <p className="mt-1 text-xl font-semibold">Take Back</p>
                                 <p className="text-xl font-semibold">Your Creative</p>
