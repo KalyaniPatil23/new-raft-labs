@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Divider, Badge, Avatar, Card, Menu, Row, Col, Dropdown, Button, Space, Table } from "antd";
 import {UserOutlined, AntDesignOutlined, SearchOutlined, SettingOutlined, HomeOutlined, BarChartOutlined, DownOutlined, CompassOutlined, ShoppingOutlined, MessageOutlined, QuestionCircleOutlined, FolderOutlined, CaretUpOutlined, CalendarOutlined, BellOutlined, VideoCameraOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import logo from "../images/logo.png";
@@ -13,18 +13,42 @@ import laptop from '../images/laptop.png';
 import book from '../images/book.png';
 import './dashboard.css';
 import CustomBar from "./common/BarChart";
+import WeekCalendar from "./common/WeekCalendar";
+import { Months, getItem, Status, Customers } from "../utils";
 
 const Dashboard = () => {
     const [selectedMonth, setSelectedMonth] = useState('Month');
-    function getItem(label, key, icon, children, type) {
-        return {
-          key,
-          icon,
-          children,
-          label,
-          type,
-        };
-      }
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [scheduleOfDay, setScheduleOfDay] = useState([])
+
+    useEffect(()=>{
+        //get scheduled of the day
+        setScheduleOfDay([
+            {
+                subject: 'Meeting with Client',
+                time: '12pm',
+                image: laptop,
+                location: 'Google Meet'
+            },
+            {
+                subject: 'Weekly Report',
+                time: '03pm',
+                image: books,
+                location: 'Google Meet'
+            },
+            {
+                subject: 'Daily Scrum Meeting',
+                time: '05pm',
+                image: book,
+                location: 'Google Meet'
+            }
+        ])
+    },[selectedDate])
+
+    const onChangeCalendarDate = (day) => {
+        setSelectedDate(day)
+    }
+
     const items = [
         getItem('Home', '1', <HomeOutlined />),
         getItem('Analytic', '2', <BarChartOutlined />),
@@ -38,77 +62,8 @@ const Dashboard = () => {
       const handleMonthClick = (e) => {
         setSelectedMonth(e.key)
       };
-      const months = [
-        {
-          label: 'January',
-          key: 'January',
-        },
-        {
-          label: 'February',
-          key: 'February',
-        },
-        {
-          label: 'March',
-          key: 'March',
-        },
-        {
-          label: 'April',
-          key: 'April',
-        },
-        {
-            label: 'May',
-            key: 'May',
-        },
-        {
-            label: 'June',
-            key: 'June'
-        },
-        {
-            label: 'July',
-            key: 'July'
-        },
-        {
-            label: 'August',
-            key: 'August'
-        },
-        {
-            label: 'September',
-            key: 'September'
-        },
-        {
-            label: 'October',
-            key: 'October'
-        },
-        {
-            label: 'November',
-            key: 'November'
-        },
-        {
-            label: 'December',
-            key: 'December'
-        }
-      ];
 
-      const customers = [
-        {
-            name: 'Flyod Johntosan',
-            email: 'johntosan@gmail.com',
-            status: 'Success',
-            date: 'Nov 02, 2021',
-            invoice: '100,00',
-            gender: 'male',
-            peoples: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-        },
-        {
-            name: 'Flyod Johntosan',
-            email: 'johntosan@gmail.com',
-            status: 'Pending',
-            date: 'Nov 02, 2021',
-            invoice: '100,00',
-            gender: 'male',
-            peoples: ['A', 'B', 'C']
-        }
-    ]
+      
 
       const columns = [
         {
@@ -189,20 +144,10 @@ const Dashboard = () => {
                 </>
             )
           },
-        //   {
-        //     title: 'Action',
-        //     key: 'action',
-        //     render: (_, record) => (
-        //       <Space size="middle">
-        //         <a>Invite {record.name}</a>
-        //         <a>Delete</a>
-        //       </Space>
-        //     ),
-        //   },
         ];
 
       const menuProps = {
-        items: months,
+        items: Months,
         onClick: handleMonthClick,
       };
 
@@ -225,7 +170,6 @@ const Dashboard = () => {
             </div>
             </Col>
             <Col span={20}>
-                {/* <div className="p-5"> */}
                 <Row className="m-5">
                 <Col flex={3}>
                     <Row>
@@ -241,8 +185,7 @@ const Dashboard = () => {
                         </div>
                     </Row>
                 </Col>
-                <Col flex={2} className="self-center ml-7">
-                    <div>
+                <Col flex={2} className="self-center ml-9">
                     <Row>
                             <span class="relative inline-block self-center">
                                 <BellOutlined className="text-[#b7bcc2] text-xl"/>
@@ -258,29 +201,14 @@ const Dashboard = () => {
                                     </Button>
                             </Dropdown>
                             </div>
-                            </Row>
-                    </div>
+                    </Row>
                 </Col>
                 </Row>
-                {/* </div> */}
                 <Row>
                     <Col flex={3}>
                         <div className="p-5">
-                            {/* <Row className="m-5">
-                                <Badge count={3} color="blue" size="large" className="self-center">
-                                    <Avatar size={50} src={maleProfile}/>
-                                </Badge>
-                                <div className="ml-6">
-                                    <p className="font-semibold text-3xl">Good Evening Team!</p>
-                                    <p className="text-[#c7cbd0]">Have an in-depth look at all the metrics within your dashboard.</p>
-                                </div>
-                                <div className="ml-auto self-center">
-                                    <Avatar size={'large'} icon={<SearchOutlined/>} className="search-icon cursor-pointer"/>
-                                </div>
-                            </Row> */}
                             <Card className="bg-[#6e63e5] p-2.5 main-card">
                                 <Row className="main-card">
-                                {/* <div className="flex flex-row gap-8"> */}
                                 <Col span={8}>
                                 <div className="flex flex-row">
                                     <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image1} alt="Monthly Revenue" />
@@ -335,7 +263,6 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                                 </Col>
-                                {/* </div> */}
                                 </Row>
                             </Card>
                             <Card className="mt-5">
@@ -360,7 +287,7 @@ const Dashboard = () => {
                                             </div>
                                             <div className="ml-auto">
                                             <Dropdown menu={{
-        items: months,
+        items: Months,
         onClick: ()=>{},
       }} className="ml-auto" placement="top" arrow={{ pointAtCenter: true }}>
                                             <Button>
@@ -390,7 +317,10 @@ const Dashboard = () => {
                                 </Dropdown>
                             </Row>
                             <div className="mt-5 space-x-5">
-                                <Dropdown menu={menuProps} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
+                                <Dropdown menu={{
+        items: [],
+        onClick: ()=>{},
+      }} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
                                     <Button>
                                         <Space>
                                             Recipient
@@ -399,7 +329,10 @@ const Dashboard = () => {
                                     </Button>
                                 </Dropdown>
 
-                                <Dropdown menu={menuProps} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
+                                <Dropdown menu={{
+        items: [],
+        onClick: ()=>{},
+      }} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
                                     <Button>
                                         <Space>
                                             Amount
@@ -408,7 +341,10 @@ const Dashboard = () => {
                                     </Button>
                                 </Dropdown>
 
-                                <Dropdown menu={menuProps} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
+                                <Dropdown menu={{
+        items: Status,
+        onClick: ()=>{},
+      }} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
                                     <Button>
                                         <Space>
                                             Status
@@ -417,27 +353,11 @@ const Dashboard = () => {
                                     </Button>
                                 </Dropdown>
                             </div>
-                            <Table columns={columns} dataSource={customers} pagination={false} className="mt-5"/>
+                            <Table columns={columns} dataSource={Customers} pagination={false} className="mt-5"/>
                         </div>
                     </Col>
                     <Col flex={2}>
                         <div className="p-5">
-                            {/* <Row className="mt-6">
-                            <span class="relative inline-block self-center">
-                                <BellOutlined className="text-[#b7bcc2] text-xl"/>
-                                <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full"></span>
-                            </span>
-                            <div className="ml-auto">
-                            <Dropdown menu={{items: [], onClick: handleMonthClick}} placement="top" arrow={{ pointAtCenter: true }}>
-                                    <Button icon={<Avatar src={maleProfile}/>} className="h-10 rounded-full">
-                                        <Space>
-                                            Jhontosan
-                                        <DownOutlined />
-                                        </Space>
-                                    </Button>
-                            </Dropdown>
-                            </div>
-                            </Row> */}
                             <div>
                                 <p className="text-[#6e63e5]">Premium Access</p>
                                 <p className="mt-1 text-xl font-semibold">Take Back</p>
@@ -483,51 +403,28 @@ const Dashboard = () => {
                             </div>
                             <Divider/>
                             <div>
-                                <Row>
+                            <WeekCalendar showDetailsHandle={onChangeCalendarDate}/>
+                            </div>
+                            <div>
+                                {
+                                    scheduleOfDay.map((schedule) => (
+                                        <Row>
                                     <Col span={5} className="self-center">
-                                        <img src={laptop} className="w-8 h-8"/>
+                                        <img src={schedule.image} className="w-8 h-8"/>
                                     </Col>
                                     <Col span={19}>
-                                        <p className="font-semibold text-lg">Meeting with client</p>
+                                        <p className="font-semibold text-lg">{schedule.subject}</p>
                                         <Row className="mt-2">
                                             <VideoCameraOutlined className="text-lg text-gray-500"/>
-                                            <p className="text-gray-500 ml-2">Google Meet</p>
+                                            <p className="text-gray-500 ml-2">{schedule.location}</p>
                                             <ClockCircleOutlined className="ml-4 text-lg text-gray-500"/>
-                                            <p className="text-gray-500 ml-2">12pm</p>
+                                            <p className="text-gray-500 ml-2">{schedule.time}</p>
                                         </Row>
                                     </Col>
                                     <Divider/>
                                 </Row>
-                                <Row>
-                                    <Col span={5} className="self-center">
-                                        <img src={books} className="w-8 h-8"/>
-                                    </Col>
-                                    <Col span={19}>
-                                        <p className="font-semibold text-lg">Meeting with client</p>
-                                        <Row className="mt-2">
-                                            <VideoCameraOutlined className="text-lg text-gray-500"/>
-                                            <p className="text-gray-500 ml-2">Google Meet</p>
-                                            <ClockCircleOutlined className="ml-4 text-lg text-gray-500"/>
-                                            <p className="text-gray-500 ml-2">12pm</p>
-                                        </Row>
-                                    </Col>
-                                    <Divider/>
-                                </Row>
-                                <Row>
-                                    <Col span={5} className="self-center">
-                                        <img src={book} className="w-8 h-8"/>
-                                    </Col>
-                                    <Col span={19}>
-                                        <p className="font-semibold text-lg">Meeting with client</p>
-                                        <Row className="mt-2">
-                                            <VideoCameraOutlined className="text-lg text-gray-500"/>
-                                            <p className="text-gray-500 ml-2">Google Meet</p>
-                                            <ClockCircleOutlined className="ml-4 text-lg text-gray-500"/>
-                                            <p className="text-gray-500 ml-2">12pm</p>
-                                        </Row>
-                                    </Col>
-                                    <Divider/>
-                                </Row>
+                                    ))
+                                }
                             </div>
                         </div>
                     </Col>
