@@ -1,4 +1,9 @@
-.ant-menu-light .ant-menu-item-selected{
+.header {
+    flex: auto;
+    /* flex-flow: row; */
+}
+
+.ant-menu-light .ant-menu-item-selected {
     background-color: #6e63e5;
     color: white;
 }
@@ -15,4 +20,24 @@
 
 .main-card .ant-card .ant-card-body {
     padding: 10px !important;
+}
+
+@media only screen and (max-width: 640px) {
+
+    .header {
+        flex: none;
+    }
+
+    .graph {
+        margin-top: 80px;
+    }
+
+}
+
+@media only screen and (max-width: 950px) {
+
+    .header-notification {
+        flex-wrap: inherit;
+    }
+
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Badge, Avatar, Card, Row, Col, Dropdown, Button, Space, Table } from "antd";
-import { UserOutlined, AntDesignOutlined, SearchOutlined, SettingOutlined, HomeOutlined, BarChartOutlined, DownOutlined, CompassOutlined, ShoppingOutlined, MessageOutlined, QuestionCircleOutlined, FolderOutlined, CaretUpOutlined, CalendarOutlined, BellOutlined, VideoCameraOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { SearchOutlined, DownOutlined, CaretUpOutlined, CalendarOutlined, BellOutlined, VideoCameraOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import image1 from "../images/image1.jpg";
 import image2 from "../images/image2.png";
 import image3 from '../images/image3.png';
@@ -13,13 +13,14 @@ import book from '../images/book.png';
 import './dashboard.css';
 import CustomBar from "./common/BarChart";
 import WeekCalendar from "./common/WeekCalendar";
-import { Months, Status, Customers } from "../utils";
+import { Months, Status } from "../utils";
 
 const Dashboard = () => {
     const [selectedMonth, setSelectedMonth] = useState('Month');
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedStatus, setSelectedStatus] = useState('Status')
     const [scheduleOfDay, setScheduleOfDay] = useState([])
+    const [selecetdMonthOfGraph, setSelectedMonthOfGraph] = useState('Month')
 
     useEffect(() => {
         //get scheduled of the day
@@ -45,6 +46,42 @@ const Dashboard = () => {
         ])
     }, [selectedDate])
 
+    const barGraphData = {
+        labels: ["1-10 Oct", "11-20 Oct", "21-30 Oct"],
+        datasets: [
+            {
+                data: [30, 35, 25],
+                backgroundColor: '#d3cffc'
+            },
+            {
+                data: [50, 60, 40],
+                backgroundColor: '#6e62e5'
+            },
+
+        ],
+
+    };
+
+    const customers = [
+        {
+            name: 'Flyod Johntosan',
+            email: 'johntosan@gmail.com',
+            status: 'Success',
+            date: 'Nov 02, 2021',
+            invoice: '100,00',
+            gender: 'male',
+            peoples: [{ name: 'A', image: profile1 }, { name: 'B', image: maleProfile }, { name: 'C', image: femaleProfile }, { name: 'D', image: maleProfile }, { name: 'E', image: profile1 }, { name: 'F', image: femaleProfile }, { name: 'G', image: maleProfile }, { name: 'H', image: profile1 }]
+        },
+        {
+            name: 'Flyod Johntosan',
+            email: 'johntosan@gmail.com',
+            status: 'Pending',
+            date: 'Nov 02, 2021',
+            invoice: '100,00',
+            gender: 'male',
+            peoples: [{ name: 'A', image: femaleProfile }, { name: 'B', image: profile1 }, { name: 'C', image: maleProfile }]
+        }
+    ]
     const onChangeCalendarDate = (day) => {
         setSelectedDate(day)
     }
@@ -118,16 +155,9 @@ const Dashboard = () => {
                             backgroundColor: '#fde3cf',
                         }}
                     >
-                        <Avatar size={35} src={femaleProfile} />
-                        <Avatar
-                            src={profile1}
-                            size={35}
-                        />
-                        <Avatar
-                            size={35}
-                            src={maleProfile}
-                        //icon={<AntDesignOutlined />}
-                        />
+                        {customer.peoples.map((people) => (
+                            <Avatar size={35} src={people.image} />
+                        ))}
                     </Avatar.Group>
                 </>
             )
@@ -142,107 +172,97 @@ const Dashboard = () => {
     return (
 
         <div className='overflow-auto h-screen'>
-            <Row className="m-5">
-                <Col flex={3}>
-                    <Row>
-                        <Badge count={3} color="blue" size="large" className="self-center">
-                            <Avatar size={50} src={maleProfile} />
-                        </Badge>
-                        <div className="ml-6">
-                            <p className="font-semibold text-3xl">Good Evening Team!</p>
-                            <p className="text-[#c7cbd0]">Have an in-depth look at all the metrics within your dashboard.</p>
-                        </div>
-                        <div className="ml-auto self-center">
-                            <Avatar size={'large'} icon={<SearchOutlined />} className="search-icon cursor-pointer" />
-                        </div>
-                    </Row>
-                </Col>
-                <Col flex={2} className="self-center ml-9">
-                    <Row>
-                        <span class="relative inline-block self-center">
-                            <BellOutlined className="text-[#b7bcc2] text-xl" />
-                            <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full"></span>
-                        </span>
-                        <div className="ml-auto">
-                            <Dropdown menu={{ items: [], onClick: handleMonthClick }} placement="top" arrow={{ pointAtCenter: true }}>
-                                <Button icon={<Avatar src={maleProfile} />} className="h-10 rounded-full">
-                                    <Space>
-                                        Jhontosan
-                                        <DownOutlined />
-                                    </Space>
-                                </Button>
-                            </Dropdown>
-                        </div>
-                    </Row>
-                </Col>
+            <Row className="m-5 md:flex-nowrap header">
+                <Row className="flex-row md:flex-nowrap header">
+                    <Badge count={3} color="blue" size="large" className="self-center">
+                        <Avatar size={50} src={maleProfile} />
+                    </Badge>
+                    <div className="ml-6">
+                        <p className="font-semibold text-xl md:text-3xl">Good Evening Team!</p>
+                        <p className="text-[#c7cbd0]">Have an in-depth look at all the metrics within your dashboard.</p>
+                    </div>
+                    <div className="ml-auto self-center">
+                        <Avatar size={'large'} icon={<SearchOutlined />} className="search-icon cursor-pointer" />
+                    </div>
+                </Row>
+                <Row className="header-notification hidden md:flex">
+                    <span class="relative inline-block self-center mr-11 ml-7">
+                        <BellOutlined className="text-[#b7bcc2] text-xl" />
+                        <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full"></span>
+                    </span>
+                    <div className="ml-auto hidden self-center md:block">
+                        <Dropdown menu={{ items: [], onClick: handleMonthClick }} placement="top" arrow={{ pointAtCenter: true }}>
+                            <Button icon={<Avatar src={maleProfile} />} className="h-10 rounded-full">
+                                <Space>
+                                    Jhontosan
+                                    <DownOutlined />
+                                </Space>
+                            </Button>
+                        </Dropdown>
+                    </div>
+                </Row>
             </Row>
             <Row>
                 <Col flex={3}>
                     <div className="p-5">
                         <Card className="bg-[#6e63e5] p-2.5 main-card">
                             <Row className="main-card">
-                                <Col span={8}>
-                                    <div className="flex flex-row">
-                                        <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image1} alt="Monthly Revenue" />
-                                        <div className="ml-4 text-white">
-                                            <p>Monthly Revenue</p>
-                                            <div className="flex flex-row mt-2">
-                                                <p className="text-xl self-center">$3.500</p>
-                                                <div className="rounded-full bg-white text-[#6e63e5] text-base font-bold p-1 ml-2">
-                                                    +2.4%
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-row mt-2">
-                                                <p>Previous month </p>
-                                                <p className="font-bold ml-0.5">$1.7k</p>
+                                <div className="flex flex-row">
+                                    <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image1} alt="Monthly Revenue" />
+                                    <div className="ml-4 text-white">
+                                        <p>Monthly Revenue</p>
+                                        <div className="flex flex-row mt-2">
+                                            <p className="text-xl self-center">$3.500</p>
+                                            <div className="rounded-full bg-white text-[#6e63e5] text-base font-bold p-1 ml-2">
+                                                +2.4%
                                             </div>
                                         </div>
-                                    </div>
-                                </Col>
-                                <Col span={8}>
-                                    <div className="flex flex-row">
-                                        <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image2} alt="Monthly Sales" />
-                                        <div className="ml-4 text-white">
-                                            <p>Monthly Sales</p>
-                                            <div className="flex flex-row mt-2">
-                                                <p className="text-xl self-center">$6.750</p>
-                                                <div className="rounded-full bg-white text-[#6e63e5] text-base font-bold p-1 ml-2">
-                                                    +1.4%
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-row mt-2">
-                                                <p>Previous month </p>
-                                                <p className="font-bold ml-0.5">$3.1k</p>
-                                            </div>
+                                        <div className="flex flex-row mt-2">
+                                            <p>Previous month </p>
+                                            <p className="font-bold ml-0.5">$1.7k</p>
                                         </div>
                                     </div>
-                                </Col>
-                                <Col span={8}>
-                                    <div className="flex flex-row">
-                                        <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image3} alt="Monthly Revenue" />
-                                        <div className="ml-4 text-white">
-                                            <p>Total Profit</p>
-                                            <div className="flex flex-row mt-2">
-                                                <p className="text-xl self-center">$10.900</p>
-                                                <div className="rounded-full bg-white text-[#6e63e5] text-base font-bold p-1 ml-2">
-                                                    +4.3%
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-row mt-2">
-                                                <p>Previous month </p>
-                                                <p className="font-bold ml-0.5">$8.9k</p>
+                                </div>
+                                <div className="flex flex-row">
+                                    <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image2} alt="Monthly Sales" />
+                                    <div className="ml-4 text-white">
+                                        <p>Monthly Sales</p>
+                                        <div className="flex flex-row mt-2">
+                                            <p className="text-xl self-center">$6.750</p>
+                                            <div className="rounded-full bg-white text-[#6e63e5] text-base font-bold p-1 ml-2">
+                                                +1.4%
                                             </div>
                                         </div>
+                                        <div className="flex flex-row mt-2">
+                                            <p>Previous month </p>
+                                            <p className="font-bold ml-0.5">$3.1k</p>
+                                        </div>
                                     </div>
-                                </Col>
+                                </div>
+                                <div className="flex flex-row">
+                                    <img class="rounded-full border border-gray-100 shadow-sm w-12 h-12 self-center" src={image3} alt="Monthly Revenue" />
+                                    <div className="ml-4 text-white">
+                                        <p>Total Profit</p>
+                                        <div className="flex flex-row mt-2">
+                                            <p className="text-xl self-center">$10.900</p>
+                                            <div className="rounded-full bg-white text-[#6e63e5] text-base font-bold p-1 ml-2">
+                                                +4.3%
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row mt-2">
+                                            <p>Previous month </p>
+                                            <p className="font-bold ml-0.5">$8.9k</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </Row>
                         </Card>
                         <Card className="mt-5">
-                            <Row>
-                                <Col span={12}>
+                            <Row className="justify-between">
+                                <div>
                                     <h1 className="font-medium text-xl">Total Sales & Cost</h1>
                                     <p className="text-[#c7cbd0]">Last 60 days</p>
-                                    <div className="absolute bottom-1.5">
+                                    <div className="absolute md:bottom-1.5">
                                         <div className="flex flex-row">
                                             <p className="text-3xl text-[#6e63e5] font-bold">$956.82k</p>
                                             <div className=" flex flex-row gap-1 rounded-full bg-[#b3f3cb] self-center text-[#88e3a5] p-1 ml-2 h-6">
@@ -251,20 +271,20 @@ const Dashboard = () => {
                                         </div>
                                         <span className="text-[#88e3a5]">+8.20k</span><span className="text-[#c7cbd0]"> vs prev 60 days</span>
                                     </div>
-                                </Col>
-                                <Col span={12}>
-                                    <Row >
+                                </div>
+                                <div className="graph">
+                                    <Row>
                                         <div>
                                             <span className="font-semibold">Analytic</span><span className="text-[#88e3a5]"> +5.4%</span>
                                         </div>
                                         <div className="ml-auto">
                                             <Dropdown menu={{
                                                 items: Months,
-                                                onClick: () => { },
+                                                onClick: (e) => { setSelectedMonthOfGraph(e.key) },
                                             }} className="ml-auto" placement="top" arrow={{ pointAtCenter: true }}>
                                                 <Button>
                                                     <Space>
-                                                        Month
+                                                        {selecetdMonthOfGraph}
                                                         <DownOutlined />
                                                     </Space>
                                                 </Button>
@@ -272,9 +292,9 @@ const Dashboard = () => {
                                         </div>
                                     </Row>
                                     <div className="mt-1 p-1">
-                                        <CustomBar />
+                                        <CustomBar data={barGraphData} />
                                     </div>
-                                </Col>
+                                </div>
                             </Row>
                         </Card>
                         <Row className="mt-5">
@@ -315,7 +335,7 @@ const Dashboard = () => {
 
                             <Dropdown menu={{
                                 items: Status,
-                                onClick: () => { },
+                                onClick: (e) => { setSelectedStatus(e.key) },
                             }} className="bg-[#dfe2e7]" placement="top" arrow={{ pointAtCenter: true }}>
                                 <Button>
                                     <Space>
@@ -325,12 +345,12 @@ const Dashboard = () => {
                                 </Button>
                             </Dropdown>
                         </div>
-                        <Table columns={columns} dataSource={Customers} pagination={false} className="mt-5" />
+                        <Table columns={columns} dataSource={customers} pagination={false} className="mt-5" />
                     </div>
                 </Col>
                 <Col flex={2}>
                     <div className="p-5">
-                        <div>
+                        <div className="hidden md:block">
                             <p className="text-[#6e63e5]">Premium Access</p>
                             <p className="mt-1 text-xl font-semibold">Take Back</p>
                             <p className="text-xl font-semibold">Your Creative</p>
