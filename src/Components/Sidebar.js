@@ -9,13 +9,13 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     const items = [
-        getItem('Home', '/', <HomeOutlined />),
-        getItem('Analytic', '/analytic', <BarChartOutlined />),
-        getItem('Explore', '/explore', <CompassOutlined />),
-        getItem('Shop', '/shop', <ShoppingOutlined />),
-        getItem('Inbox', '/inbox', <MessageOutlined />),
-        getItem('Tools', 'tools', null, [getItem('Setting', '/setting', <SettingOutlined />), getItem('Help', '/help', <QuestionCircleOutlined />)], 'group'),
-        getItem('Projects', 'projects', null, [getItem('Amazon', '/amazon', <FolderOutlined />), getItem('Invinity HQ', '/invinity', <FolderOutlined />)], 'group'),
+        getItem('Home', '/new-raft-labs/', <HomeOutlined />),
+        getItem('Analytic', '/new-raft-labs/analytic', <BarChartOutlined />),
+        getItem('Explore', '/new-raft-labs/explore', <CompassOutlined />),
+        getItem('Shop', '/new-raft-labs/shop', <ShoppingOutlined />),
+        getItem('Inbox', '/new-raft-labs/inbox', <MessageOutlined />),
+        getItem('Tools', 'tools', null, [getItem('Setting', '/new-raft-labs/setting', <SettingOutlined />), getItem('Help', '/new-raft-labs/help', <QuestionCircleOutlined />)], 'group'),
+        getItem('Projects', 'projects', null, [getItem('Amazon', '/new-raft-labs/amazon', <FolderOutlined />), getItem('Invinity HQ', '/new-raft-labs/invinity', <FolderOutlined />)], 'group'),
     ];
     return (
         <Col span={4}>
