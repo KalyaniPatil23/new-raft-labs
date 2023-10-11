@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/new-raft-labs/static/css/main.3f66234d.css",
+    "main.js": "/new-raft-labs/static/js/main.cf2ee5f9.js",
+    "static/js/787.ec704a7a.chunk.js": "/new-raft-labs/static/js/787.ec704a7a.chunk.js",
+    "index.html": "/new-raft-labs/index.html",
+    "main.3f66234d.css.map": "/new-raft-labs/static/css/main.3f66234d.css.map",
+    "main.cf2ee5f9.js.map": "/new-raft-labs/static/js/main.cf2ee5f9.js.map",
+    "787.ec704a7a.chunk.js.map": "/new-raft-labs/static/js/787.ec704a7a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3f66234d.css",
+    "static/js/main.cf2ee5f9.js"
+  ]
+}
